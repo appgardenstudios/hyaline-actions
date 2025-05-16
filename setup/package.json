@@ -1,0 +1,20 @@
+{
+  "name": "setup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/io": "^1.1.3",
+    "@actions/tool-cache": "^2.0.2"
+  }
+}

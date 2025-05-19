@@ -7,9 +7,9 @@ jobs:
   test-setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Print version to STDOUT
-        run: echo ${{ inputs.version }}
       - name: My first step - check out repository
         uses: actions/checkout@v4
       - name: Setup CLI
         uses: ./setup
+      - name: Print Hyaline version
+        run: hyaline version

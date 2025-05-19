@@ -46,6 +46,9 @@ async function run () {
 
     // Rename the file to just be hyaline (without the os/arch postfixes)
     const pathToCLI = path.join(path.dirname(pathToBinary), 'hyaline')
+    if (operatingSystem == 'windows') {
+      pathToCLI + '.exe';
+    }
     core.debug(`Moving ${pathToBinary} to ${pathToCLI}`);
     await io.mv(pathToBinary, pathToCLI)
 

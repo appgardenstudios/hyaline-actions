@@ -21,7 +21,7 @@ function mapArchitecture(arch) {
   return mappings[arch] || arch;
 }
 
-async function run () {
+async function setup () {
   try {
     // Get input(s)
     const version = core.getInput('version');
@@ -61,4 +61,10 @@ async function run () {
   }
 }
 
-module.exports = run;
+(async () => {
+  try {
+    await setup();
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+})();

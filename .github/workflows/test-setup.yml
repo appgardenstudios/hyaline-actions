@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version to test'
+        required: true
+        default: '2025-05-14-0b29c8f'
+        type: string
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print version to STDOUT
+        run: echo ${{ inputs.version }}
+      - name: Setup CLI
+        uses: ./setup

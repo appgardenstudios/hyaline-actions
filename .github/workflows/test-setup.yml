@@ -12,6 +12,6 @@ jobs:
       - name: Setup CLI
         uses: ./setup
         with:
-          authentication: ${{ secrets.HYALINE_RELEASE_TOKEN }}
+          auth: ${{ secrets.HYALINE_RELEASE_TOKEN }}
       - name: Print Hyaline version
         run: hyaline version

@@ -25,7 +25,7 @@ async function setup () {
   try {
     // Get input(s)
     const version = core.getInput('version');
-    const authentication = core.getInput('authentication');
+    const authentication = core.getInput('auth');
     core.debug(`Version: ${version}`);
 
     // Get OS/ARCH details

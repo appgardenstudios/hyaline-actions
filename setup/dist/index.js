@@ -30135,6 +30135,7 @@ async function setup () {
   try {
     // Get input(s)
     const version = core.getInput('version');
+    const authentication = core.getInput('auth');
     core.debug(`Version: ${version}`);
 
     // Get OS/ARCH details
@@ -30143,24 +30144,16 @@ async function setup () {
 
     // Calculate the binary name and url to download
     let binaryName = `hyaline-${operatingSystem}-${architecture}`;
-    if (operatingSystem == 'windows') {
-      binaryName += '.exe';
-    }
     core.debug(`Binary Name: ${binaryName}`);
-    const url = `https://github.com/appgardenstudios/hyaline/releases/download/${version}/${binaryName}`
+    const url = `https://github.com/appgardenstudios/hyaline/releases/download/${version}/${binaryName}.zip`
     
     // Download requested version
     core.debug(`Downloading ${url}`);
-    const pathToBinary = await tc.downloadTool(url);
-    core.debug(`Downloaded to ${pathToBinary}`);
+    const pathToCLIZip = await tc.downloadTool(url, undefined, authentication);
+    core.debug(`Downloaded to ${pathToCLIZip}`);
 
-    // Rename the file to just be hyaline (without the os/arch postfixes)
-    const pathToCLI = path.join(path.dirname(pathToBinary), 'hyaline')
-    if (operatingSystem == 'windows') {
-      pathToCLI + '.exe';
-    }
-    core.debug(`Moving ${pathToBinary} to ${pathToCLI}`);
-    await io.mv(pathToBinary, pathToCLI)
+    // Unzip the file
+    const pathToCLI = tc.extractZip(pathToCLIZip)
 
     // Add to path
     core.debug(`Adding ${pathToCLI} to PATH`);

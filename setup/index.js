@@ -35,7 +35,7 @@ async function setup () {
     // Calculate the binary name and url to download
     let binaryName = `hyaline-${operatingSystem}-${architecture}`;
     core.debug(`Binary Name: ${binaryName}`);
-    const url = `https://github.com/appgardenstudios/hyaline/releases/download/${version}/${binaryName}.gz`
+    const url = `https://github.com/appgardenstudios/hyaline/releases/download/${version}/${binaryName}.zip`
     
     // Download requested version
     core.debug(`Downloading ${url}`);

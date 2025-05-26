@@ -4,8 +4,6 @@ inputs:
   version:
     description: 'The version to install'
     default: '2025-05-19-c9b176c'
-  auth:
-    description: 'Hyaline release authentication'
 runs:
   using: 'node20'
   main: 'dist/index.js'

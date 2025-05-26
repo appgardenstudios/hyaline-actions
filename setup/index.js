@@ -25,7 +25,6 @@ async function setup () {
   try {
     // Get input(s)
     const version = core.getInput('version');
-    const authentication = core.getInput('auth');
     core.debug(`Version: ${version}`);
 
     // Get OS/ARCH details
@@ -39,7 +38,7 @@ async function setup () {
     
     // Download requested version
     core.debug(`Downloading ${url}`);
-    const pathToCLIZip = await tc.downloadTool(url, undefined, authentication);
+    const pathToCLIZip = await tc.downloadTool(url);
     core.debug(`Downloaded to ${pathToCLIZip}`);
 
     // Unzip the file

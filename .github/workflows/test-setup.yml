@@ -11,7 +11,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup CLI
         uses: ./setup
-        with:
-          auth: ${{ secrets.HYALINE_RELEASE_TOKEN }}
       - name: Print Hyaline version
         run: hyaline version

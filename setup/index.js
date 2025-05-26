@@ -3,6 +3,7 @@ const io = require('@actions/io');
 const os = require('os');
 const path = require('path');
 const tc = require('@actions/tool-cache');
+const fs = require('fs');
 
 // https://nodejs.org/api/os.html#os_os_platform
 function mapOperatingSystem(platform) {
@@ -43,6 +44,10 @@ async function setup () {
 
     // Unzip the file
     const pathToCLI = await tc.extractZip(pathToCLIZip)
+
+    fs.readdirSync(testFolder).forEach(file => {
+      core.debug(`File: ${file}`);
+    });
 
     // Add to path
     core.debug(`Adding ${pathToCLI} to PATH`);

@@ -30113,6 +30113,7 @@ const io = __nccwpck_require__(4994);
 const os = __nccwpck_require__(857);
 const path = __nccwpck_require__(6928);
 const tc = __nccwpck_require__(3472);
+const fs = __nccwpck_require__(9896);
 
 // https://nodejs.org/api/os.html#os_os_platform
 function mapOperatingSystem(platform) {
@@ -30153,6 +30154,10 @@ async function setup () {
 
     // Unzip the file
     const pathToCLI = await tc.extractZip(pathToCLIZip)
+
+    fs.readdirSync(testFolder).forEach(file => {
+      core.debug(`File: ${file}`);
+    });
 
     // Add to path
     core.debug(`Adding ${pathToCLI} to PATH`);

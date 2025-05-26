@@ -1,0 +1,21 @@
+{
+  "name": "setup",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "ncc build index.js --out dist"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "description": "Install and setup the Hyaline CLI",
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/tool-cache": "^2.0.2"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.3"
+  }
+}

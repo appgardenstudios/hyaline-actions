@@ -1,0 +1,15 @@
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup CLI
+        uses: ./setup
+      - name: Print Hyaline version
+        run: hyaline version

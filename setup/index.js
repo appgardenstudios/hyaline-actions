@@ -45,7 +45,8 @@ async function setup () {
     // Unzip the file
     const pathToCLI = await tc.extractZip(pathToCLIZip)
 
-    fs.readdirSync(testFolder).forEach(file => {
+    fs.readdirSync(pathToCLI).forEach(file => {
+      console.log(`File: ${file}`);
       core.debug(`File: ${file}`);
     });
 

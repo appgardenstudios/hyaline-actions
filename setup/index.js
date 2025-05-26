@@ -1,9 +1,6 @@
 const core = require('@actions/core');
-const io = require('@actions/io');
 const os = require('os');
-const path = require('path');
 const tc = require('@actions/tool-cache');
-const fs = require('fs');
 
 // https://nodejs.org/api/os.html#os_os_platform
 function mapOperatingSystem(platform) {

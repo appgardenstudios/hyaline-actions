@@ -30109,11 +30109,8 @@ module.exports = parseParams
 /************************************************************************/
 var __webpack_exports__ = {};
 const core = __nccwpck_require__(7484);
-const io = __nccwpck_require__(4994);
 const os = __nccwpck_require__(857);
-const path = __nccwpck_require__(6928);
 const tc = __nccwpck_require__(3472);
-const fs = __nccwpck_require__(9896);
 
 // https://nodejs.org/api/os.html#os_os_platform
 function mapOperatingSystem(platform) {

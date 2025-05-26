@@ -42,7 +42,7 @@ async function setup () {
     core.debug(`Downloaded to ${pathToCLIZip}`);
 
     // Unzip the file
-    const pathToCLI = tc.extractZip(pathToCLIZip)
+    const pathToCLI = await tc.extractZip(pathToCLIZip)
 
     // Add to path
     core.debug(`Adding ${pathToCLI} to PATH`);

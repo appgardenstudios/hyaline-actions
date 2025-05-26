@@ -9,13 +9,13 @@ This action can be run on `ubuntu-latest` and `macos-latest` (and should work on
 The default configuration installs a hard-coded version of Hyaline that is updated alongside major Hyaline releases:
 ```yaml
 steps:
-  - uses: appgardenstudios/hyaline-actions/setup@v1
+  - uses: appgardenstudios/hyaline-actions/setup@v0
 ```
 
 A specific version of the Hyaline CLI can be installed using:
 ```yaml
 steps:
-  - uses: appgardenstudios/hyaline-actions/setup@v1
+  - uses: appgardenstudios/hyaline-actions/setup@v0
     with:
       version: "YYYY-MM-DD-HASH"
 ```
@@ -34,4 +34,4 @@ This action is not configured to provide any outputs.
 The action is contained in `index.js` and requires NodeJS v20. There is a test action configured to run that will exercise this action to install the CLI and run `hyaline version` when a push to anything other than the main branch is made.
 
 ## Releasing
-Ensure that `npm run build` has been run and checked in alongside any `index.js` changes to the main branch. Once verified, tag the main branch and push that tag to GitHub (at least the `v1` tag).
+Ensure that `npm run build` has been run and checked in alongside any `index.js` changes to the main branch. Once verified, tag the main branch and push that tag to GitHub (at least the main `vX` tag).

@@ -53,21 +53,52 @@ async function check () {
     // Run extract current
     console.log('Running hyaline extract current:');
     await exec.exec('hyaline', [
-      '--debug',
+      '--debug', // TODO make debug optional?
       'extract', 'current',
       '--config', config,
       '--system', system,
-      '--output', `.current-${uuid}.db`,
+      '--output', `./current-${uuid}.db`,
     ]);
 
     // Run extract change
-    // TODO
+    console.log('Running hyaline extract change:');
+    await exec.exec('hyaline', [
+      '--debug',
+      'extract', 'change',
+      '--config', config,
+      '--system', system,
+      '--base', base,
+      '--head', head,
+      '--output', `./change-${uuid}.db`,
+    ]);
 
     // Run check change
-    // TODO
+    console.log('Running hyaline check change:');
+    await exec.exec('hyaline', [
+      '--debug',
+      'check', 'change',
+      '--config', config,
+      '--system', system,
+      '--current', `./current-${uuid}.db`,
+      '--change', `./change-${uuid}.db`,
+      '--output', `./recommendations-${uuid}.json`,
+    ]);
 
     // Run update pr
-    // TODO
+    console.log('Running hyaline update pr:');
+    const updatePR = [
+      '--debug',
+      'update', 'pr',
+      '--config', config,
+      '--pull-request', `${owner}/${repo}/${pull_number}`,
+      '--sha', 'TODO',
+      '--recommendations', `./recommendations-${uuid}.json`,
+      '--output', `./comment-${uuid}.json`,
+    ];
+    if (commentID) {
+      updatePR.push('--comment', `${owner}/${repo}/${commentID}`);
+    }
+    await exec.exec('hyaline', updatePR);
 
     // Set outputs
     // TODO

@@ -53,6 +53,7 @@ async function check () {
     // Run extract current
     console.log('Running hyaline extract current:');
     await exec.exec('hyaline', [
+      '--debug',
       'extract', 'current',
       '--config', config,
       '--system', system,

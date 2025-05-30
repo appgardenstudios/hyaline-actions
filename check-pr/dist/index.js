@@ -31828,6 +31828,7 @@ module.exports = parseParams
 /************************************************************************/
 var __webpack_exports__ = {};
 const core = __nccwpck_require__(7484);
+const exec = __nccwpck_require__(5236);
 const github = __nccwpck_require__(3228);
 
 async function check () {
@@ -31853,7 +31854,7 @@ async function check () {
         pull_number,
     });
     const head = pullRequest.head.ref;
-    const base = pullRequest.head.base;
+    const base = pullRequest.base.ref;
     console.log(`Using head: ${head}, base: ${base}`);
 
     // See if a Hyaline comment already exists
@@ -31867,6 +31868,9 @@ async function check () {
       return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
     });
     console.log(`Using comment: ${commentID}`);
+
+    // Run version
+    await exec.exec('hyaline', ['version']);
 
     // Run extract current
     // TODO

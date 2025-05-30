@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const exec = require('@actions/exec');
 const github = require('@actions/github');
 
 async function check () {
@@ -24,7 +25,7 @@ async function check () {
         pull_number,
     });
     const head = pullRequest.head.ref;
-    const base = pullRequest.head.base;
+    const base = pullRequest.base.ref;
     console.log(`Using head: ${head}, base: ${base}`);
 
     // See if a Hyaline comment already exists
@@ -38,6 +39,9 @@ async function check () {
       return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
     });
     console.log(`Using comment: ${commentID}`);
+
+    // Run version
+    await exec.exec('hyaline', ['version']);
 
     // Run extract current
     // TODO

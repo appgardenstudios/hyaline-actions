@@ -41,9 +41,10 @@ async function check () {
       issue_number: pull_number,
       per_page: 100, // TODO loop to get them all
     });
-    let commentID = comments.find((comment) => {
+    const comment = comments.find((comment) => {
       return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
     });
+    const commentID = comment ? comment.id : undefined;
     console.log(`Using comment: ${commentID}`);
 
     // Run version

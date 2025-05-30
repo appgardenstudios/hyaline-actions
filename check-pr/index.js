@@ -31,6 +31,7 @@ async function check () {
         pull_number,
     });
     const head = pullRequest.head.ref;
+    const sha = pullRequest.head.sha;
     const base = pullRequest.base.ref;
     console.log(`Using head: ${head}, base: ${base}`);
 
@@ -92,7 +93,7 @@ async function check () {
       'update', 'pr',
       '--config', config,
       '--pull-request', `${owner}/${repo}/${pull_number}`,
-      '--sha', 'TODO',
+      '--sha', sha,
       '--recommendations', `./recommendations-${uuid}.json`,
       '--output', `./comment-${uuid}.json`,
     ];

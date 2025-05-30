@@ -31896,8 +31896,8 @@ async function check () {
       'extract', 'change',
       '--config', config,
       '--system', system,
-      '--base', base,
-      '--head', head,
+      '--base', `origin/${base}`,
+      '--head', `origin/${head}`,
       '--output', `./change-${uuid}.db`,
     ]);
 

@@ -27561,6 +27561,7 @@ async function check () {
   try {
     // Get inputs
     // TODO
+    console.log("Hello World!");
 
     // Get HEAD/BASE for Pull Request
     // TODO

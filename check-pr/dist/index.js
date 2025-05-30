@@ -27560,8 +27560,12 @@ const core = __nccwpck_require__(7484);
 async function check () {
   try {
     // Get inputs
+    const config = core.getInput('config');
+    const repository = core.getInput('repository');
+    const pull_number = core.getInput('pull_number');
+    const github_token = core.getInput('github_token');
     // TODO
-    console.log("Hello World!");
+    console.log(config, repository, pull_number);
 
     // Get HEAD/BASE for Pull Request
     // TODO

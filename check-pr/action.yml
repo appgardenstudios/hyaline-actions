@@ -4,11 +4,8 @@ inputs:
   config:
     description: 'The path to the Hyaline config file'
     required: true
-  owner:
-    description: 'The repository owner'
-    required: false
-  repo:
-    description: 'The repo'
+  repository:
+    description: 'The repository (owner/repo)'
     required: false
   pull_number:
     description: 'The pull request number'

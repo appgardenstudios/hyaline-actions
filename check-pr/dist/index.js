@@ -31827,6 +31827,7 @@ module.exports = parseParams
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+const crypto = __nccwpck_require__(6982);
 const core = __nccwpck_require__(7484);
 const exec = __nccwpck_require__(5236);
 const github = __nccwpck_require__(3228);
@@ -31835,16 +31836,21 @@ async function check () {
   try {
     // Get inputs
     const config = core.getInput('config');
+    const system = core.getInput('system');
     const repository = core.getInput('repository');
     const pull_number = core.getInput('pull_number');
     const github_token = core.getInput('github_token');
     
+    // Generate run UUID
+    const uuid = crypto.randomUUID();
+    console.log(`Using run UUID ${uuid}`);
+
     // Get owner and repo from inputs, falling back to context
     let [owner, repo] = repository.split('/');
     if (!owner || !repo) {
       [owner, repo] = github.context.repository.split('/');
     }
-    console.log(`Checking PR ${owner}/${repo}/${pull_number} using config ${config}`);
+    console.log(`Checking PR ${owner}/${repo}/${pull_number} using system ${system} and config ${config}`);
     
     // Get HEAD/BASE for Pull Request
     const octokit = github.getOctokit(github_token);
@@ -31870,10 +31876,17 @@ async function check () {
     console.log(`Using comment: ${commentID}`);
 
     // Run version
+    console.log('Running hyaline version:');
     await exec.exec('hyaline', ['version']);
 
     // Run extract current
-    // TODO
+    console.log('Running hyaline extract current:');
+    await exec.exec('hyaline', [
+      'extract', 'current',
+      '--config', config,
+      '--system', system,
+      '--output', `.current-${uuid}.db`,
+    ]);
 
     // Run extract change
     // TODO

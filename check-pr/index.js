@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const fs = require('fs');
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const github = require('@actions/github');
@@ -103,7 +104,8 @@ async function check () {
     await exec.exec('hyaline', updatePR);
 
     // Set outputs
-    const commentMetadata = require(`./comment-${uuid}.json`);
+    const rawCommentMetadata = fs.readFileSync(`./comment-${uuid}.json`, 'utf8');
+    const commentMetadata = JSON.parse(rawCommentMetadata);
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
     let total_recommendations = commentMetadata.recommendations.length;

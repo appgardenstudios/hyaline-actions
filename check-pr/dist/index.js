@@ -31828,6 +31828,7 @@ module.exports = parseParams
 /************************************************************************/
 var __webpack_exports__ = {};
 const crypto = __nccwpck_require__(6982);
+const fs = __nccwpck_require__(9896);
 const core = __nccwpck_require__(7484);
 const exec = __nccwpck_require__(5236);
 const github = __nccwpck_require__(3228);
@@ -31932,7 +31933,8 @@ async function check () {
     await exec.exec('hyaline', updatePR);
 
     // Set outputs
-    const commentMetadata = require(`./comment-${uuid}.json`);
+    const rawCommentMetadata = fs.readFileSync(`./comment-${uuid}.json`, 'utf8');
+    const commentMetadata = JSON.parse(rawCommentMetadata);
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
     let total_recommendations = commentMetadata.recommendations.length;

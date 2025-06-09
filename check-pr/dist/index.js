@@ -31834,7 +31834,7 @@ const core = __nccwpck_require__(7484);
 const exec = __nccwpck_require__(5236);
 const github = __nccwpck_require__(3228);
 
-async function check () {
+async function check() {
   try {
     // Get inputs
     const config = core.getInput('config');
@@ -31894,7 +31894,7 @@ async function check () {
     // Run extract current
     console.log('Running hyaline extract current:');
     await exec.exec('hyaline', [
-      '--debug', // TODO mark down to make debug optional
+      '--debug',
       'extract', 'current',
       '--config', config,
       '--system', system,
@@ -31908,7 +31908,7 @@ async function check () {
       'extract', 'change',
       '--config', config,
       '--system', system,
-      '--base', `origin/${base}`, // TODO Mark this down as something to be included in hyaline itself
+      '--base', `origin/${base}`,
       '--head', `origin/${head}`,
       '--output', `./change-${uuid}.db`,
     ]);

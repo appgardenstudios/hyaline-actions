@@ -38,16 +38,24 @@ async function check () {
     console.log(`Using head: ${head}, base: ${base}`);
 
     // See if a Hyaline comment already exists
-    const { data: comments } = await octokit.rest.issues.listComments({
-      owner,
-      repo,
-      issue_number: pull_number,
-      per_page: 100, // TODO loop to get them all
-    });
-    const comment = comments.find((comment) => {
-      return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
-    });
-    const commentID = comment ? comment.id : undefined;
+    let commentID = undefined;
+    for await (const { data: comments } of octokit.paginate.iterator(
+      octokit.rest.issues.listComments,
+      {
+        owner,
+        repo,
+        issue_number: pull_number,
+        per_page: 100,
+      },
+    )) {
+      const comment = comments.find((comment) => {
+        return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
+      });
+      if (comment) {
+        commentID = comment.id;
+        break;
+      }
+    }
     console.log(`Using comment: ${commentID}`);
 
     // Run version

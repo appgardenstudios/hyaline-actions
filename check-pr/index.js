@@ -112,7 +112,7 @@ async function check () {
     const commentMetadata = JSON.parse(rawCommentMetadata);
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
-    let total_recommendations = commentMetadata.recommendations?.length;
+    let total_recommendations = commentMetadata.recommendations?.length || 0;
     commentMetadata.recommendations?.forEach(rec => {
       if (rec.checked) {
         completed_recommendations++;
@@ -120,8 +120,11 @@ async function check () {
         outstanding_recommendations++;
       }
     });
+    console.log(`completed_recommendations: ${completed_recommendations}`);
     core.setOutput("completed_recommendations", completed_recommendations);
+    console.log(`outstanding_recommendations: ${outstanding_recommendations}`);
     core.setOutput("outstanding_recommendations", outstanding_recommendations);
+    console.log(`total_recommendations: ${total_recommendations}`);
     core.setOutput("total_recommendations", total_recommendations);
 
   } catch (error) {

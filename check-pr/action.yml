@@ -16,6 +16,13 @@ inputs:
   github_token:
     description: 'The github token to use'
     required: true
+outputs:
+  completed_recommendations:
+    description: 'The number of recommendations completed'
+  outstanding_recommendations:
+    description: 'The number of recommendations not completed'
+  total_recommendations:
+    description: 'The total number of recommendations'
 runs:
   using: 'node20'
   main: 'dist/index.js'

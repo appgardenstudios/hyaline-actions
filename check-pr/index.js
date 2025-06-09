@@ -55,7 +55,7 @@ async function check () {
     // Run extract current
     console.log('Running hyaline extract current:');
     await exec.exec('hyaline', [
-      '--debug', // TODO make debug optional?
+      '--debug', // TODO mark down to make debug optional
       'extract', 'current',
       '--config', config,
       '--system', system,
@@ -69,7 +69,7 @@ async function check () {
       'extract', 'change',
       '--config', config,
       '--system', system,
-      '--base', `origin/${base}`,
+      '--base', `origin/${base}`, // TODO Mark this down as something to be included in hyaline itself
       '--head', `origin/${head}`,
       '--output', `./change-${uuid}.db`,
     ]);
@@ -103,7 +103,20 @@ async function check () {
     await exec.exec('hyaline', updatePR);
 
     // Set outputs
-    // TODO
+    const commentMetadata = require(`./comment-${uuid}.json`);
+    let completed_recommendations = 0;
+    let outstanding_recommendations = 0;
+    let total_recommendations = commentMetadata.recommendations.length;
+    commentMetadata.recommendations.forEach(rec => {
+      if (rec.checked) {
+        completed_recommendations++;
+      } else {
+        outstanding_recommendations++;
+      }
+    });
+    core.setOutput("completed_recommendations", completed_recommendations);
+    core.setOutput("outstanding_recommendations", outstanding_recommendations);
+    core.setOutput("total_recommendations", total_recommendations);
 
   } catch (error) {
     core.error(error);

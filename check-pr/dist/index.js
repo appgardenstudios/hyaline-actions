@@ -31934,6 +31934,7 @@ async function check () {
     await exec.exec('hyaline', updatePR);
 
     // Set outputs
+    console.log('Setting Outputs:');
     const commentMetadataPath = path.join(process.cwd(), `./comment-${uuid}.json`);
     console.log(`Loading comment metadata from ${commentMetadataPath}`);
     const rawCommentMetadata = fs.readFileSync(commentMetadataPath, 'utf8');

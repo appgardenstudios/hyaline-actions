@@ -31940,8 +31940,8 @@ async function check () {
     const commentMetadata = JSON.parse(rawCommentMetadata);
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
-    let total_recommendations = commentMetadata.recommendations.length;
-    commentMetadata.recommendations.forEach(rec => {
+    let total_recommendations = commentMetadata.recommendations?.length;
+    commentMetadata.recommendations?.forEach(rec => {
       if (rec.checked) {
         completed_recommendations++;
       } else {

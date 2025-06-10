@@ -23,7 +23,7 @@ jobs:
     # Only run if PR is NOT a draft
     if: ${{ github.event.pull_request.draft == false }}
     permissions:
-      issues: write
+      pull-requests: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
           ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_KEY }}
 ```
 
-Note that `check-pr` requires permission to leave a comment on the pull request, and since pull requests are treated as issues by GitHub, Hyaline required the permission `issues: write` to add/update the comment on the pull request.
+Note that `check-pr` requires the permission `pull-requests: write` to leave a comment on the pull request.
 
 # Inputs
 The action supports the following inputs:

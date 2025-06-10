@@ -1,0 +1,28 @@
+name: 'Check PR'
+description: 'Use Hyaline to check a PR'
+inputs:
+  config:
+    description: 'The path to the Hyaline config file'
+    required: true
+  system:
+    description: 'The Hyaline system to use'
+    required: true
+  repository:
+    description: 'The repository (owner/repo)'
+    required: false
+  pr_number:
+    description: 'The pull request number'
+    required: true
+  github_token:
+    description: 'The github token to use'
+    required: true
+outputs:
+  completed_recommendations:
+    description: 'The number of recommendations completed'
+  outstanding_recommendations:
+    description: 'The number of recommendations not completed'
+  total_recommendations:
+    description: 'The total number of recommendations'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

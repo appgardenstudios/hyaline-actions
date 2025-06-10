@@ -45,6 +45,8 @@ jobs:
           ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_KEY }}
 ```
 
+Note that `check-pr` requires permission to leave a comment on the pull request, and since pull requests are treated as issues by GitHub, Hyaline required the permission `issues: write` to add/update the comment on the pull request.
+
 # Inputs
 The action supports the following inputs:
 

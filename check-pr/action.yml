@@ -10,7 +10,7 @@ inputs:
   repository:
     description: 'The repository (owner/repo)'
     required: false
-  pull_number:
+  pr_number:
     description: 'The pull request number'
     required: true
   github_token:

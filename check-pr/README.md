@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     # Only run if PR is NOT a draft
     if: ${{ github.event.pull_request.draft == false }}
+    permissions:
+      issues: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -35,7 +37,7 @@ jobs:
           config: ./hyaline.yml
           system: my-app
           repository: ${{ github.repository }}
-          pull_number: ${{ github.event.pull_request.number }}
+          pr_number: ${{ github.event.pull_request.number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           # Set env vars needed by the hyaline CLI when interpolating the hyaline config
@@ -49,7 +51,7 @@ The action supports the following inputs:
 * `config` - (required) The path to the hyaline configuration file relative to the root of the repository.
 * `system` - (required) The system to use when extracting and checking the change.
 * `repository`  - (optional) The current GitHub repository (owner/repo).
-* `pull_number` - (required) The pull request number.
+* `pr_number` - (required) The pull request number.
 * `github_token` - (required) The GitHub token to use when reading and updating the PR's comments. This must have read/write to the repositories issues (because a pull request comment is actually an issue comment in GitHub).
 
 # Outputs

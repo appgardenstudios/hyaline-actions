@@ -31840,7 +31840,7 @@ async function check() {
     const config = core.getInput('config');
     const system = core.getInput('system');
     const repository = core.getInput('repository');
-    const pull_number = core.getInput('pull_number');
+    const pr_number = core.getInput('pr_number');
     const github_token = core.getInput('github_token');
     
     // Generate run UUID
@@ -31852,14 +31852,14 @@ async function check() {
     if (!owner || !repo) {
       [owner, repo] = github.context.repository.split('/');
     }
-    console.log(`Checking PR ${owner}/${repo}/${pull_number} using system ${system} and config ${config}`);
+    console.log(`Checking PR ${owner}/${repo}/${pr_number} using system ${system} and config ${config}`);
     
     // Get HEAD/BASE for Pull Request
     const octokit = github.getOctokit(github_token);
     const { data: pullRequest } = await octokit.rest.pulls.get({
         owner,
         repo,
-        pull_number,
+        pull_number: pr_number,
     });
     const head = pullRequest.head.ref;
     const sha = pullRequest.head.sha;
@@ -31873,7 +31873,7 @@ async function check() {
       {
         owner,
         repo,
-        issue_number: pull_number,
+        issue_number: pr_number,
         per_page: 100,
       },
     )) {
@@ -31931,7 +31931,7 @@ async function check() {
       '--debug',
       'update', 'pr',
       '--config', config,
-      '--pull-request', `${owner}/${repo}/${pull_number}`,
+      '--pull-request', `${owner}/${repo}/${pr_number}`,
       '--sha', sha,
       '--recommendations', `./recommendations-${uuid}.json`,
       '--output', `./comment-${uuid}.json`,

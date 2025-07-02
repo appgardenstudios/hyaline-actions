@@ -3,7 +3,7 @@ description: 'Install and setup Hyaline'
 inputs:
   version:
     description: 'The version to install'
-    default: '2025-06-17-bbafd00'
+    default: '2025-07-02-64bc3d4'
 runs:
   using: 'node20'
   main: 'dist/index.js'

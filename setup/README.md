@@ -9,21 +9,21 @@ This action can be run on `ubuntu-latest` and `macos-latest` (and should work on
 The default configuration installs a hard-coded version of Hyaline that is updated alongside major Hyaline releases:
 ```yaml
 steps:
-  - uses: appgardenstudios/hyaline-actions/setup@v0
+  - uses: appgardenstudios/hyaline-actions/setup@v1
 ```
 
 A specific version of the Hyaline CLI can be installed using:
 ```yaml
 steps:
-  - uses: appgardenstudios/hyaline-actions/setup@v0
+  - uses: appgardenstudios/hyaline-actions/setup@v1
     with:
-      version: "YYYY-MM-DD-HASH"
+      version: "v1-YYYY-MM-DD-HASH"
 ```
 
 # Inputs
 The action supports the following inputs:
 
-* `version` - (optional) The version of the Hyaline CLI to install. This version must be present as a tagged [GitHub Release](https://github.com/appgardenstudios/hyaline/releases) and must be later than `2025-05-26`.
+* `version` - (optional) The version of the Hyaline CLI to install. This version must be present as a tagged [GitHub Release](https://github.com/appgardenstudios/hyaline/releases) and must be later than `v1-2025-08-08`.
 
 # Outputs
 This action is not configured to provide any outputs.

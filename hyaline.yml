@@ -29,4 +29,7 @@ check:
       - "setup/index.js"
   documentation:
     include:
-      - source: "hyaline-actions"
+      - source: hyaline-actions
+  options:
+    detectDocumentationUpdates:
+      source: hyaline-actions

@@ -1,0 +1,28 @@
+{
+  "name": "hyaline-actions",
+  "version": "1.0.0",
+  "description": "GitHub Actions for [Hyaline](https://github.com/appgardenstudios/hyaline).",
+  "private": true,
+  "workspaces": [
+    "check-pr",
+    "setup"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/appgardenstudios/hyaline-actions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/appgardenstudios/hyaline-actions/issues"
+  },
+  "homepage": "https://github.com/appgardenstudios/hyaline-actions#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

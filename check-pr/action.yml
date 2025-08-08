@@ -4,9 +4,6 @@ inputs:
   config:
     description: 'The path to the Hyaline config file'
     required: true
-  system:
-    description: 'The Hyaline system to use'
-    required: true
   repository:
     description: 'The repository (owner/repo)'
     required: false

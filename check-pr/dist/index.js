@@ -31850,7 +31850,7 @@ async function check() {
     if (!owner || !repo) {
       [owner, repo] = github.context.repository.split('/');
     }
-    console.log(`Checking PR ${owner}/${repo}/${pr_number} using system ${system} and config ${config}`);
+    console.log(`Checking PR ${owner}/${repo}/${pr_number} using config ${config}`);
 
     // Run version
     console.log('Running hyaline version:');

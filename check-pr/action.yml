@@ -10,9 +10,6 @@ inputs:
   pr_number:
     description: 'The pull request number'
     required: true
-  github_token:
-    description: 'The github token to use'
-    required: true
 outputs:
   completed_recommendations:
     description: 'The number of recommendations completed'

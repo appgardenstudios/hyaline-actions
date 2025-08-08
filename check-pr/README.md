@@ -25,9 +25,9 @@ jobs:
     steps:
       - name: Checkout repo
       - name: Setup Hyaline
-        uses: appgardenstudios/hyaline-actions/setup@v0
+        uses: appgardenstudios/hyaline-actions/setup@v1
       - name: Check PR
-        uses: appgardenstudios/hyaline-actions/check-pr@v0
+        uses: appgardenstudios/hyaline-actions/check-pr@v1
         with:
           config: ./hyaline.yml
           repository: ${{ github.repository }}

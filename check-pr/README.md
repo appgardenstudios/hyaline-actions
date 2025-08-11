@@ -23,7 +23,6 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - name: Checkout repo
       - name: Setup Hyaline
         uses: appgardenstudios/hyaline-actions/setup@v1
       - name: Check PR

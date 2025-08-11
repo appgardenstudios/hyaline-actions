@@ -1,0 +1,35 @@
+llm:
+  provider: anthropic
+  model: claude-sonnet-4-20250514
+  key: ${ANTHROPIC_KEY}
+
+github:
+  token: ${GITHUB_TOKEN}
+
+extract:
+  source:
+    id: hyaline-actions
+    description: documentation for hyaline actions
+  crawler:
+    type: fs
+    options:
+      path: ./
+    include:
+      - "check-pr/README.md"
+      - "setup/README.md"
+  extractors:
+    - type: md
+      include:
+        - "**/*.md"
+
+check:
+  code:
+    include:
+      - "check-pr/index.js"
+      - "setup/index.js"
+  documentation:
+    include:
+      - source: hyaline-actions
+  options:
+    detectDocumentationUpdates:
+      source: hyaline-actions

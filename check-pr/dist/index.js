@@ -31838,10 +31838,8 @@ async function check() {
   try {
     // Get inputs
     const config = core.getInput('config');
-    const system = core.getInput('system');
     const repository = core.getInput('repository');
     const pr_number = core.getInput('pr_number');
-    const github_token = core.getInput('github_token');
     
     // Generate run UUID
     const uuid = crypto.randomUUID();
@@ -31852,105 +31850,48 @@ async function check() {
     if (!owner || !repo) {
       [owner, repo] = github.context.repository.split('/');
     }
-    console.log(`Checking PR ${owner}/${repo}/${pr_number} using system ${system} and config ${config}`);
-    
-    // Get HEAD/BASE for Pull Request
-    const octokit = github.getOctokit(github_token);
-    const { data: pullRequest } = await octokit.rest.pulls.get({
-        owner,
-        repo,
-        pull_number: pr_number,
-    });
-    const head = pullRequest.head.ref;
-    const sha = pullRequest.head.sha;
-    const base = pullRequest.base.ref;
-    console.log(`Using head: ${head}, base: ${base}`);
-
-    // See if a Hyaline comment already exists
-    let commentID = undefined;
-    for await (const { data: comments } of octokit.paginate.iterator(
-      octokit.rest.issues.listComments,
-      {
-        owner,
-        repo,
-        issue_number: pr_number,
-        per_page: 100,
-      },
-    )) {
-      const comment = comments.find((comment) => {
-        return comment.body.startsWith('# H\u200By\u200Ba\u200Bl\u200Bi\u200Bn\u200Be');
-      });
-      if (comment) {
-        commentID = comment.id;
-        break;
-      }
-    }
-    console.log(`Using comment: ${commentID}`);
+    console.log(`Checking PR ${owner}/${repo}/${pr_number} using config ${config}`);
 
     // Run version
     console.log('Running hyaline version:');
     await exec.exec('hyaline', ['version']);
 
-    // Run extract current
-    console.log('Running hyaline extract current:');
-    await exec.exec('hyaline', [
-      '--debug',
-      'extract', 'current',
+    // Run extract documentation
+    console.log('Running hyaline extract documentation:');
+    let args = [
+      'extract', 'documentation',
       '--config', config,
-      '--system', system,
-      '--output', `./current-${uuid}.db`,
-    ]);
-
-    // Run extract change
-    console.log('Running hyaline extract change:');
-    await exec.exec('hyaline', [
-      '--debug',
-      'extract', 'change',
-      '--config', config,
-      '--system', system,
-      '--base', base,
-      '--head', head,
-      '--output', `./change-${uuid}.db`,
-    ]);
-
-    // Run check change
-    console.log('Running hyaline check change:');
-    await exec.exec('hyaline', [
-      '--debug',
-      'check', 'change',
-      '--config', config,
-      '--system', system,
-      '--current', `./current-${uuid}.db`,
-      '--change', `./change-${uuid}.db`,
-      '--output', `./recommendations-${uuid}.json`,
-    ]);
-
-    // Run update pr
-    console.log('Running hyaline update pr:');
-    const updatePR = [
-      '--debug',
-      'update', 'pr',
-      '--config', config,
-      '--pull-request', `${owner}/${repo}/${pr_number}`,
-      '--sha', sha,
-      '--recommendations', `./recommendations-${uuid}.json`,
-      '--output', `./comment-${uuid}.json`,
+      '--output', `./documentation-${uuid}.db`,
     ];
-    if (commentID) {
-      updatePR.push('--comment', `${owner}/${repo}/${commentID}`);
+    if (core.isDebug()) {
+      args.unshift('--debug');
     }
-    await exec.exec('hyaline', updatePR);
+    await exec.exec('hyaline', args);
+
+    // Run check pr
+    console.log('Running hyaline check pr:');
+    args = [
+      'check', 'pr',
+      '--config', config,
+      '--documentation', `./documentation-${uuid}.db`,
+      '--pull-request', `${owner}/${repo}/${pr_number}`,
+      '--output', `./recommendations-${uuid}.json`,
+    ];
+    if (core.isDebug()) {
+      args.unshift('--debug');
+    }
+    await exec.exec('hyaline', args);
 
     // Set outputs
     console.log('Setting Outputs:');
-    const commentMetadataPath = path.join(process.cwd(), `./comment-${uuid}.json`);
-    console.log(`Loading comment metadata from ${commentMetadataPath}`);
-    const rawCommentMetadata = fs.readFileSync(commentMetadataPath, 'utf8');
-    const commentMetadata = JSON.parse(rawCommentMetadata);
+    const recommendationsPath = path.join(process.cwd(), `./recommendations-${uuid}.json`);
+    console.log(`Loading recommendations from ${recommendationsPath}`);
+    const rawRecommendations = fs.readFileSync(recommendationsPath, 'utf8');
+    const recommendations = JSON.parse(rawRecommendations);
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
-    let total_recommendations = commentMetadata.recommendations?.length || 0;
-    commentMetadata.recommendations?.forEach(rec => {
+    let total_recommendations = recommendations.recommendations?.length || 0;
+    recommendations.recommendations?.forEach(rec => {
       if (rec.checked) {
         completed_recommendations++;
       } else {

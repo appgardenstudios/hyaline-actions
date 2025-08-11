@@ -3,10 +3,8 @@ The `appgardenstudios/hyaline-actions/check-pr` action is a JavaScript action th
 
 This PR runs the following hyaline commands:
 * `hyaline version` to document which version was used
-* `hyaline extract current` to extract the current data set for the system
-* `hyaline extract change` to extract the change data set for the system based on the PR
-* `hyaline check change` to check the change for needed documentation updates
-* `hyaline update pr` to comment on the PR with the results of the check
+* `hyaline extract documentation` to extract the current documentation from the repo
+* `hyaline check pr` to check the PR for needed documentation updates and comment on the PR with the results of the check
 
 # Usage
 This action can be run on `ubuntu-latest` and `macos-latest` (and should work on `windows-latest`) GitHub Actions runners. When running on self-hosted GitHub Actions runners you will need to install `NodeJS` using the version specified in [action.yml](./action.yml).
@@ -26,35 +24,29 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Setup Hyaline
-        uses: appgardenstudios/hyaline-actions/setup@v0
+        uses: appgardenstudios/hyaline-actions/setup@v1
       - name: Check PR
-        uses: appgardenstudios/hyaline-actions/check-pr@v0
+        uses: appgardenstudios/hyaline-actions/check-pr@v1
         with:
           config: ./hyaline.yml
-          system: my-app
           repository: ${{ github.repository }}
           pr_number: ${{ github.event.pull_request.number }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           # Set env vars needed by the hyaline CLI when interpolating the hyaline config
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_KEY: ${{ secrets.ANTHROPIC_KEY }}
 ```
 
-Note that `check-pr` requires the permission `pull-requests: write` to leave a comment on the pull request.
+Note that `check-pr` requires the `github-token` in the Hyaline config to have the following permissions:
+- `pull-requests: write` to leave a comment on the pull request.
 
 # Inputs
 The action supports the following inputs:
 
 * `config` - (required) The path to the hyaline configuration file relative to the root of the repository.
-* `system` - (required) The system to use when extracting and checking the change.
 * `repository`  - (optional) The current GitHub repository (owner/repo).
 * `pr_number` - (required) The pull request number.
-* `github_token` - (required) The GitHub token to use when reading and updating the PR's comments. This must have read/write to the repositories issues (because a pull request comment is actually an issue comment in GitHub).
 
 # Outputs
 This action provides the following outputs:

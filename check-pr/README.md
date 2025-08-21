@@ -58,6 +58,7 @@ This action provides the following outputs:
 * `outstanding_recommendations` - The number of recommendations that are unchecked and not marked as completed.
 * `total_recommendations` - The total number of recommendations (sum of `completed_recommendations` and `outstanding_recommendations`)
 
+Note: Outdated recommendations are excluded from these recommendation numbers.
 
 # Developing
 

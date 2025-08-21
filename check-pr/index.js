@@ -58,11 +58,14 @@ async function check() {
     const recommendationsPath = path.join(process.cwd(), `./recommendations-${uuid}.json`);
     console.log(`Loading recommendations from ${recommendationsPath}`);
     const rawRecommendations = fs.readFileSync(recommendationsPath, 'utf8');
-    const recommendations = JSON.parse(rawRecommendations);
+    const allRecommendations = JSON.parse(rawRecommendations).recommendations;
+    // Exclude outdated recommendations
+    const recommendations = allRecommendations?.filter(rec => !rec.outdated);
+
     let completed_recommendations = 0;
     let outstanding_recommendations = 0;
-    let total_recommendations = recommendations.recommendations?.length || 0;
-    recommendations.recommendations?.forEach(rec => {
+    let total_recommendations = recommendations?.length || 0;
+    recommendations?.forEach(rec => {
       if (rec.checked) {
         completed_recommendations++;
       } else {

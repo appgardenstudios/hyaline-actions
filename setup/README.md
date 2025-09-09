@@ -23,7 +23,7 @@ steps:
 # Inputs
 The action supports the following inputs:
 
-* `version` - (optional) The version of the Hyaline CLI to install. This version must be present as a tagged [GitHub Release](https://github.com/appgardenstudios/hyaline/releases) and must be later than `v1-2025-08-21`.
+* `version` - (optional) The version of the Hyaline CLI to install. This version must be present as a tagged [GitHub Release](https://github.com/appgardenstudios/hyaline/releases) and must be later than `v1-2025-09-09`.
 
 # Outputs
 This action is not configured to provide any outputs.
